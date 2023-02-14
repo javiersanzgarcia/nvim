@@ -126,10 +126,6 @@ keymap("n", "<C-Space>", "<cmd>lua vim.lsp.buf.code_action()<CR>", silent)
 keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", silent)
 keymap("v", "<leader>ca", "<cmd>'<,'>lua vim.lsp.buf.code_action()<CR>", silent)
 keymap("n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>", silent)
-keymap("n", "<leader>cf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>",
-       silent)
-keymap("v", "<leader>cf", "<cmd>'<.'>lua vim.lsp.buf.range_formatting()<CR>",
-       silent)
 keymap("n", "<leader>cl",
        "<cmd>lua vim.diagnostic.open_float({ border = 'rounded', max_width = 100 })<CR>",
        silent)
@@ -188,3 +184,10 @@ keymap('n', '<A-right>', '<C-w>l', silent)
 
 -- Copy all: :%y+
 -- Duplicate line NVIM: yy p
+
+-- Format piece
+
+keymap("n", "<S-Space>", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>",
+       silent)
+keymap("v", "<S-Space>", "<cmd>'<.'>lua vim.lsp.buf.range_formatting()<CR>",
+       silent)
