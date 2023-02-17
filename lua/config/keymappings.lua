@@ -22,9 +22,9 @@ keymap("v", ">", ">gv", silent)
 keymap("v", "`", "u", silent)
 keymap("v", "<A-`>", "U", silent)
 
--- Save file by CTRL-S
-keymap("n", "<C-s>", ":w<CR>", silent)
-keymap("i", "<C-s>", "<ESC> :w<CR>", silent)
+-- -- Save file by CTRL-S
+-- keymap("n", "<C-s>", ":w<CR>", silent)
+-- keymap("i", "<C-s>", "<ESC> :w<CR>", silent)
 
 -- Telescope
 keymap("n", "<C-p>", "<CMD>lua require('plugins.telescope').project_files()<CR>")
@@ -113,16 +113,12 @@ else
 end
 
 -- Refactor with spectre
-keymap("n", "<Leader>pr",
+keymap("n", "<leader>pr",
        "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", silent)
-keymap("v", "<Leader>pr", "<cmd>lua require('spectre').open_visual()<CR>")
+keymap("v", "<leader>pr", "<cmd>lua require('spectre').open_visual()<CR>")
 
 -- LSP
-keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", silent)
-keymap("n", "gr",
-       "<cmd>lua vim.lsp.buf.references({ includeDeclaration = false })<CR>",
-       silent)
-keymap("n", "<C-Space>", "<cmd>lua vim.lsp.buf.code_action()<CR>", silent)
+
 keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", silent)
 keymap("v", "<leader>ca", "<cmd>'<,'>lua vim.lsp.buf.code_action()<CR>", silent)
 keymap("n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>", silent)
@@ -191,3 +187,11 @@ keymap("n", "<S-Space>", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>",
        silent)
 keymap("v", "<S-Space>", "<cmd>'<.'>lua vim.lsp.buf.range_formatting()<CR>",
        silent)
+
+-- Go to Definition / References / Code Action
+
+keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", silent)
+keymap("n", "gr",
+       "<cmd>lua vim.lsp.buf.references({ includeDeclaration = false })<CR>",
+       silent)
+keymap("n", "<C-Space>", "<cmd>lua vim.lsp.buf.code_action()<CR>", silent)
