@@ -34,12 +34,6 @@ keymap("n", "<S-p>",
 -- Remove highlights
 keymap("n", "<CR>", ":noh<CR><CR>", silent)
 
--- Find word/file across project
-keymap("n", "<Leader>pf",
-       "<CMD>lua require('plugins.telescope').project_files({ default_text = vim.fn.expand('<cword>'), initial_mode = 'normal' })<CR>")
-keymap("n", "<Leader>pw",
-       "<CMD>lua require('telescope.builtin').grep_string({ initial_mode = 'normal' })<CR>")
-
 -- Buffers
 keymap("n", "<Tab>", ":BufferNext<CR>", silent)
 keymap("n", "gn", ":bn<CR>", silent)
@@ -145,38 +139,38 @@ keymap("n", "<leader>ac", "<cmd>lua require('comment-box').lbox()<CR>", silent)
 keymap("v", "<leader>ac", "<cmd>lua require('comment-box').lbox()<CR>", silent)
 
 --  Pracker Maps
-keymap('n', '<leader>q', ':q<cr>')
-keymap('n', '<leader>w', ':w<cr>')
-keymap('n', '<leader>x', ':x<cr>')
-keymap('n', '<leader>tv', ':botright vnew <Bar> :terminal<cr>')
-keymap('n', '<leader>th', ':botright new <Bar> :terminal<cr>')
-keymap('n', '<leader>qq', ':q!<cr>', silent)
+keymap("n", "<Leader>q", ":q<cr>")
+keymap("n", "<Leader>w", ":w<cr>")
+keymap("n", "<Leader>x", ":x<cr>")
+keymap("n", "<Leader>tv", ":botright vnew <Bar> :terminal<cr>")
+keymap("n", "<Leader>th", ":botright new <Bar> :terminal<cr>")
+keymap("n", "<Leader>qq", ":q!<cr>", silent)
 
 -- Toggle Tree
 
-keymap('n', '<leader>n', "<cmd>lua require'nvim-tree'.toggle()<CR>", silent)
+keymap("n", "<leader>n", "<cmd>lua require'nvim-tree'.toggle()<CR>", silent)
 
 -- EOL & BOL
-keymap('n', '<S-right>', '$', silent)
-keymap('n', '<S-left>', '^', silent)
+keymap("n", '<S-right>', '$', silent)
+keymap("n", '<S-left>', '^', silent)
 
 -- Move Lines
 
-keymap('n', '<S-down>', ':m .+1<CR>==')
-keymap('n', '<S-up>', ':m .-2<CR>==')
+keymap("n", '<S-down>', ':m .+1<CR>==')
+keymap("n", '<S-up>', ':m .-2<CR>==')
 
-keymap('i', '<S-down>', '<Esc>:m .+1<CR>==gi')
-keymap('i', '<S-up>', '<Esc>:m .-2<CR>==gi')
+keymap("i", '<S-down>', '<Esc>:m .+1<CR>==gi')
+keymap("i", '<S-up>', '<Esc>:m .-2<CR>==gi')
 
-keymap('v', '<S-down>', ':m \'>+1<CR>gv=gv')
-keymap('v', '<S-up>', ':m \'>-2<CR>gv=gv')
+keymap("v", '<S-down>', ':m \'>+1<CR>gv=gv')
+keymap("v", '<S-up>', ':m \'>-2<CR>gv=gv')
 
 -- Move around splits
 
-keymap('n', '<A-left>', '<C-w>h', silent)
-keymap('n', '<A-down>', '<C-w>j', silent)
-keymap('n', '<A-up>', '<C-w>k', silent)
-keymap('n', '<A-right>', '<C-w>l', silent)
+keymap("n", '<A-left>', '<C-w>h', silent)
+keymap("n", '<A-down>', '<C-w>j', silent)
+keymap("n", '<A-up>', '<C-w>k', silent)
+keymap("n", '<A-right>', '<C-w>l', silent)
 
 -- Copy all: :%y+
 -- Duplicate line NVIM: yy p
@@ -195,3 +189,35 @@ keymap("n", "gr",
        "<cmd>lua vim.lsp.buf.references({ includeDeclaration = false })<CR>",
        silent)
 keymap("n", "<C-Space>", "<cmd>lua vim.lsp.buf.code_action()<CR>", silent)
+
+-- Minimap
+
+keymap("n", "<Leader>m", MiniMap.open)
+keymap("n", "<Leader>mc", MiniMap.close)
+keymap("n", "<Leader>mf", MiniMap.toggle_focus)
+keymap("n", "<Leader>mr", MiniMap.refresh)
+keymap("n", "<Leader>ms", MiniMap.toggle_side)
+keymap("n", "<Leader>mt", MiniMap.toggle)
+
+-- Telescope -> $ brew install ripgrep (engine search should be installed)
+
+keymap("n", "<leader>ff",
+       "<CMD>lua require('telescope.builtin').find_files()<CR>")
+
+keymap("n", "<leader>fg",
+       "<CMD>lua require('telescope.builtin').live_grep()<CR>")
+
+keymap("n", "<leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>")
+
+keymap("n", "<leader>fn",
+       "<CMD>lua require('telescope.builtin').help_tags()<CR>")
+
+keymap("n", "<leader>fw",
+       "<CMD>lua require('telescope.builtin').grep_string()<CR>")
+
+keymap("n", "<Leader>pf",
+       "<CMD>lua require('plugins.telescope').project_files({ default_text = vim.fn.expand('<cword>'), initial_mode = 'normal' })<CR>")
+
+keymap("n", "<Leader>pw",
+       "<CMD>lua require('telescope.builtin').grep_string({ initial_mode = 'normal' })<CR>")
+
