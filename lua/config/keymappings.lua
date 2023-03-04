@@ -177,9 +177,9 @@ keymap("n", '<A-right>', '<C-w>l', silent)
 
 -- Format piece
 
-keymap("n", "<S-Space>", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>",
+keymap("n", "<leader>fd", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>",
        silent)
-keymap("v", "<S-Space>", "<cmd>'<.'>lua vim.lsp.buf.range_formatting()<CR>",
+keymap("v", "<leader>fd", "<cmd>'<.'>lua vim.lsp.buf.range_formatting()<CR>",
        silent)
 
 -- Go to Definition / References / Code Action
