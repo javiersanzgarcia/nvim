@@ -207,6 +207,9 @@ keymap("n", "<leader>ff",
 keymap("n", "<leader>fg",
        "<CMD>lua require('telescope.builtin').live_grep()<CR>")
 
+keymap("n", "<leader>fc",
+       "<CMD>lua require('telescope.builtin').live_grep({grep_open_files=true})<CR>")
+
 keymap("n", "<leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>")
 
 keymap("n", "<leader>fn",
