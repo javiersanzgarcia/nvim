@@ -282,9 +282,9 @@ return {
         config = function() require("plugins.colorizer") end
     }, {
         "zbirenbaum/copilot.lua",
-        disable = not EcoVim.plugins.copilot.enabled,
+        cmd = "Copilot",
         event = "InsertEnter",
-        config = true
+        config = function() require("copilot").setup({}) end
     }, {
         "jackMort/ChatGPT.nvim",
         config = function() require("plugins.chat-gpt") end,

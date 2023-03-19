@@ -10,10 +10,6 @@ keymap("n", "<C-l>", "<C-w>l", silent)
 -- H to move to the first non-blank character of the line
 keymap("n", "H", "^", silent)
 
--- Move selected line / block of text in visual mode
-keymap("x", "K", ":move '<-2<CR>gv-gv", silent)
-keymap("x", "J", ":move '>+1<CR>gv-gv", silent)
-
 -- Keep visual mode indenting
 keymap("v", "<", "<gv", silent)
 keymap("v", ">", ">gv", silent)
@@ -22,9 +18,9 @@ keymap("v", ">", ">gv", silent)
 keymap("v", "`", "u", silent)
 keymap("v", "<A-`>", "U", silent)
 
--- -- Save file by CTRL-S
--- keymap("n", "<C-s>", ":w<CR>", silent)
--- keymap("i", "<C-s>", "<ESC> :w<CR>", silent)
+-- Save file by CTRL-S
+keymap("n", "<C-s>", ":w<CR>", silent)
+keymap("i", "<C-s>", "<ESC> :w<CR>", silent)
 
 -- Telescope
 keymap("n", "<C-p>", "<CMD>lua require('plugins.telescope').project_files()<CR>")
@@ -81,12 +77,8 @@ keymap("n", "<Space>,", ":cp<CR>", silent)
 keymap("n", "<Space>.", ":cn<CR>", silent)
 
 -- Toggle quicklist
-keymap("n", "<leader>q", "<cmd>lua require('utils').toggle_quicklist()<CR>",
+keymap("n", "<Leader>t", "<cmd>lua require('utils').toggle_quicklist()<CR>",
        silent)
-
--- Easyalign
-keymap("n", "ga", "<Plug>(EasyAlign)", silent)
-keymap("x", "ga", "<Plug>(EasyAlign)", silent)
 
 -- Manually invoke speeddating in case switch.vim didn't work
 keymap("n", "<C-a>",
@@ -160,11 +152,12 @@ keymap("n", '<S-left>', '^', silent)
 keymap("n", '<S-down>', ':m .+1<CR>==')
 keymap("n", '<S-up>', ':m .-2<CR>==')
 
-keymap("i", '<S-down>', '<Esc>:m .+1<CR>==gi')
-keymap("i", '<S-up>', '<Esc>:m .-2<CR>==gi')
-
 keymap("v", '<S-down>', ':m \'>+1<CR>gv=gv')
 keymap("v", '<S-up>', ':m \'>-2<CR>gv=gv')
+
+-- Move selected line / block of text in visual mode
+keymap("x", '<S-down>', ":move '>+1<CR>gv-gv", silent)
+keymap("x", '<S-up>', ":move '<-2<CR>gv-gv", silent)
 
 -- Move around splits
 
