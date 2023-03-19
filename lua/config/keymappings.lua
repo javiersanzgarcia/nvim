@@ -148,7 +148,8 @@ keymap("n", "<Leader>qq", ":q!<cr>", silent)
 
 -- Toggle Tree
 
-keymap("n", "<leader>n", "<cmd>lua require'nvim-tree'.toggle()<CR>", silent)
+keymap("n", "<leader>n", "<cmd>lua require('nvim-tree.api').tree.toggle()<CR>",
+       silent)
 
 -- EOL & BOL
 keymap("n", '<S-right>', '$', silent)
