@@ -29,13 +29,14 @@ return {
             "nvim-treesitter/nvim-treesitter-textobjects",
             "RRethy/nvim-treesitter-textsubjects", {
                 "m-demare/hlargs.nvim",
+                disable = true,
                 config = function()
                     require("hlargs").setup({color = "#F7768E"})
                 end
             }
         }
     }, -- Navigating (Telescope/Tree/Refactor)
-    {
+    {"nvim-pack/nvim-spectre"}, {
         "nvim-telescope/telescope.nvim",
         lazy = false,
         config = function() require("plugins.telescope") end,
@@ -44,12 +45,12 @@ return {
             -- {"nvim-telescope/telescope-fzf-native.nvim", build = "make"},
             {"cljoly/telescope-repo.nvim"}
         }
-    }, {"nvim-pack/nvim-spectre"}, {
+    }, {
         "nvim-tree/nvim-tree.lua",
         keys = {
             {
                 "<C-e>",
-                "<cmd>lua require'nvim-tree'.toggle()<CR>",
+                "<cmd>lua require('nvim-tree.api').tree.toggle()<CR>",
                 desc = "NvimTree"
             }
         },
@@ -74,41 +75,37 @@ return {
     }, -- Formatters
     {
         "jose-elias-alvarez/null-ls.nvim",
-        event = "BufReadPre",
-        dependencies = {"mason.nvim"},
-        config = function()
-            local nls = require("null-ls")
-            nls.setup({
-                sources = {
-                    nls.builtins.formatting.prettierd,
-                    nls.builtins.formatting.stylua,
-                    nls.builtins.diagnostics.flake8
-                }
-            })
-        end
+        event = "BufNewFile",
+        dependencies = {"mason.nvim"}
+    }, {
+        "jay-babu/mason-null-ls.nvim",
+        event = {"BufReadPre", "BufNewFile"},
+        dependencies = {
+            "williamboman/mason.nvim", "jose-elias-alvarez/null-ls.nvim"
+        },
+        config = function() require("plugins.null-ls") end
     }, -- LSP Cmp
     {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
+        config = function() require("plugins.cmp") end,
         dependencies = {
             "hrsh7th/cmp-nvim-lua", "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer", "hrsh7th/cmp-path", "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-calc", "saadparwaiz1/cmp_luasnip",
+            {"L3MON4D3/LuaSnip", dependencies = "rafamadriz/friendly-snippets"},
             {"tzachar/cmp-tabnine", build = "./install.sh"},
             {
                 "David-Kunz/cmp-npm",
                 config = function() require("plugins.cmp-npm") end
-            },
-            {"L3MON4D3/LuaSnip", dependencies = "rafamadriz/friendly-snippets"},
-            {
+            }, {
                 "zbirenbaum/copilot-cmp",
                 disable = not EcoVim.plugins.copilot.enabled,
                 config = function()
                     require("copilot_cmp").setup()
                 end
             }
-        },
-        config = function() require("plugins.cmp") end
+        }
     }, -- LSP Addons
     {
         "stevearc/dressing.nvim",
@@ -132,9 +129,23 @@ return {
         "lvimuser/lsp-inlayhints.nvim",
         branch = "main", -- or "anticonceal"
         config = function() require("plugins.inlay-hints") end
+    }, {
+        "barrett-ruth/import-cost.nvim",
+        build = "sh install.sh yarn",
+        ft = {"javascript", "typescript", "javascriptreact", "typescriptreact"},
+        config = true
     }, -- General
     {"AndrewRadev/switch.vim", lazy = false},
-    {"AndrewRadev/splitjoin.vim", lazy = false}, {
+    -- { "AndrewRadev/splitjoin.vim", lazy = false },
+    {
+        "Wansmer/treesj",
+        lazy = true,
+        cmd = {"TSJToggle", "TSJSplit", "TSJJoin"},
+        keys = {
+            {"gJ", "<cmd>TSJToggle<CR>", desc = "Trigger Toggle Split/Join"}
+        },
+        config = true
+    }, {
         "numToStr/Comment.nvim",
         lazy = false,
         branch = "jsx",
@@ -173,6 +184,7 @@ return {
         disable = not EcoVim.plugins.zen.enabled
     }, {
         "ggandor/lightspeed.nvim",
+        keys = "s",
         config = function() require("plugins.lightspeed") end
     }, {
         "folke/which-key.nvim",
@@ -197,7 +209,8 @@ return {
         init = function()
             local banned_messages = {
                 "No information available",
-                "LSP[tsserver] Inlay Hints request failed. Requires TypeScript 4.4+."
+                "LSP[tsserver] Inlay Hints request failed. Requires TypeScript 4.4+.",
+                "LSP[tsserver] Inlay Hints request failed. File not opened in the editor."
             }
             vim.notify = function(msg, ...)
                 for _, banned in ipairs(banned_messages) do
@@ -215,9 +228,9 @@ return {
         build = "cd app && npm install",
         setup = function() vim.g.mkdp_filetypes = {"markdown"} end,
         ft = {"markdown"}
-    },
-    {
+    }, {
         "declancm/cinnamon.nvim",
+        disable = true,
         config = function() require("plugins.cinnamon") end
     }, {
         "airblade/vim-rooter",
@@ -249,7 +262,11 @@ return {
         config = function() require("mini.align").setup() end
     }, {
         "rareitems/printer.nvim",
-        lazy = false,
+        event = "BufEnter",
+        ft = {
+            "lua", "javascript", "typescript", "javascriptreact",
+            "typescriptreact"
+        },
         config = function() require("plugins.printer") end
     }, {
         "lukas-reineke/indent-blankline.nvim",
@@ -270,7 +287,7 @@ return {
         config = true
     }, {
         "jackMort/ChatGPT.nvim",
-        config = function() require("chatgpt").setup() end,
+        config = function() require("plugins.chat-gpt") end,
         cmd = {"ChatGPT", "ChatGPTEditWithInstructions"}
     }, -- Git
     {
@@ -280,10 +297,12 @@ return {
         config = function() require("plugins.git.signs") end
     }, {
         "sindrets/diffview.nvim",
+        lazy = false,
         event = "BufRead",
         config = function() require("plugins.git.diffview") end
     }, {
         "akinsho/git-conflict.nvim",
+        lazy = false,
         config = function() require("plugins.git.conflict") end
     }, {
         "ThePrimeagen/git-worktree.nvim",
@@ -306,6 +325,14 @@ return {
             "antoinemadec/FixCursorHold.nvim", "haydenmeade/neotest-jest"
         },
         config = function() require("plugins.neotest") end
+    }, {
+        "andythigpen/nvim-coverage",
+        dependencies = "nvim-lua/plenary.nvim",
+        cmd = {
+            "Coverage", "CoverageSummary", "CoverageLoad", "CoverageShow",
+            "CoverageHide", "CoverageToggle", "CoverageClear"
+        },
+        config = function() require("coverage").setup() end
     }, -- DAP
     {
         "mfussenegger/nvim-dap",
@@ -317,7 +344,7 @@ return {
         dependencies = {
             "theHamsta/nvim-dap-virtual-text", "rcarriga/nvim-dap-ui"
         }
-    }, -- minimap
+    }, -- map
     {
         'echasnovski/mini.map',
         version = false,
@@ -329,8 +356,8 @@ return {
                 integrations = nil,
                 -- Symbols used to display data
                 symbols = {
-                    -- Encode symbols. See `:h MiniMap.config` for specification and
-                    -- `:h MiniMap.gen_encode_symbols` for pre-built ones.
+                    -- Encode symbols. See`:h MiniMap.config`for specification and
+                    -- `:h MiniMap.gen_encode_symbols`for pre-built ones.
                     -- Default: solid blocks with 3x2 resolution.
                     encode = map.gen_encode_symbols.block('2x1'),
                     -- Scrollbar parts for view and line. Use empty string to disable any.
@@ -339,7 +366,7 @@ return {
                 },
                 -- Window options
                 window = {
-                    -- Whether window is focusable in normal way (with `wincmd` or mouse)
+                    -- Whether window is focusable in normal way (with `wincmd`or mouse)
                     focusable = false,
                     -- Side to stick ('left' or 'right')
                     side = 'right',
