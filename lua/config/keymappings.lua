@@ -149,15 +149,14 @@ keymap("n", '<S-left>', '^', silent)
 
 -- Move Lines
 
-keymap("n", '<S-down>', ':m .+1<CR>==')
-keymap("n", '<S-up>', ':m .-2<CR>==')
+keymap("n", '<S-down>', ':m .+1<CR>==', silent)
+keymap("n", '<S-up>', ':m .-2<CR>==', silent)
 
-keymap("v", '<S-down>', ':m \'>+1<CR>gv=gv')
-keymap("v", '<S-up>', ':m \'>-2<CR>gv=gv')
+keymap("i", '<S-down>', '<Esc>:m .+1<CR>==gi', silent)
+keymap("i", '<S-up>', '<Esc>:m .-2<CR>==gi', silent)
 
--- Move selected line / block of text in visual mode
-keymap("x", '<S-down>', ":move '>+1<CR>gv-gv", silent)
-keymap("x", '<S-up>', ":move '<-2<CR>gv-gv", silent)
+keymap("v", '<S-down>', ":m '>+1<CR>gv=gv", silent)
+keymap("v", '<S-up>', ":m ':m .-2<CR>==gi", silent)
 
 -- Move around splits
 
