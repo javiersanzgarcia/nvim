@@ -131,12 +131,12 @@ keymap("n", "<leader>ac", "<cmd>lua require('comment-box').lbox()<CR>", silent)
 keymap("v", "<leader>ac", "<cmd>lua require('comment-box').lbox()<CR>", silent)
 
 --  Pracker Maps
-keymap("n", "<Leader>q", ":q<cr>")
+keymap("n", "<Leader>q", ":q!<cr>")
 keymap("n", "<Leader>w", ":w<cr>")
 keymap("n", "<Leader>x", ":x<cr>")
 keymap("n", "<Leader>tv", ":botright vnew <Bar> :terminal<cr>")
 keymap("n", "<Leader>th", ":botright new <Bar> :terminal<cr>")
-keymap("n", "<Leader>qq", ":q!<cr>", silent)
+-- keymap("n", "<Leader>qq", ":q!<cr>", silent)
 
 -- Toggle Tree
 
@@ -149,8 +149,8 @@ keymap("n", '<S-left>', '^', silent)
 
 -- Move Lines
 
-keymap("n", '<S-down>', ':m .+1<CR>==', silent)
-keymap("n", '<S-up>', ':m .-2<CR>==', silent)
+keymap("n", '<S-down>', ':m .+1<CR>==gi', silent)
+keymap("n", '<S-up>', ':m .-2<CR>==gi', silent)
 
 keymap("i", '<S-down>', '<Esc>:m .+1<CR>==gi', silent)
 keymap("i", '<S-up>', '<Esc>:m .-2<CR>==gi', silent)
