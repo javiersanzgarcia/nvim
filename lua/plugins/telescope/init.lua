@@ -58,9 +58,9 @@ require('telescope').setup {
     },
     extensions = {
         -- fzf = {
-        --     override_generic_sorter = false,
-        --     override_file_sorter = true,
-        --     case_mode = "smart_case"
+        --   override_generic_sorter = false,
+        --   override_file_sorter = true,
+        --   case_mode = "smart_case",
         -- }
     }
 }

@@ -10,6 +10,10 @@ keymap("n", "<C-l>", "<C-w>l", silent)
 -- H to move to the first non-blank character of the line
 keymap("n", "H", "^", silent)
 
+-- Move selected line / block of text in visual mode
+keymap("x", "K", ":move '<-2<CR>gv-gv", silent)
+keymap("x", "J", ":move '>+1<CR>gv-gv", silent)
+
 -- Keep visual mode indenting
 keymap("v", "<", "<gv", silent)
 keymap("v", ">", ">gv", silent)
@@ -29,6 +33,12 @@ keymap("n", "<S-p>",
 
 -- Remove highlights
 keymap("n", "<CR>", ":noh<CR><CR>", silent)
+
+-- Find word/file across project
+keymap("n", "<Leader>pf",
+       "<CMD>lua require('plugins.telescope').project_files({ default_text = vim.fn.expand('<cword>'), initial_mode = 'normal' })<CR>")
+keymap("n", "<Leader>pw",
+       "<CMD>lua require('telescope.builtin').grep_string({ initial_mode = 'normal' })<CR>")
 
 -- Buffers
 keymap("n", "<Tab>", ":BufferNext<CR>", silent)
@@ -77,7 +87,7 @@ keymap("n", "<Space>,", ":cp<CR>", silent)
 keymap("n", "<Space>.", ":cn<CR>", silent)
 
 -- Toggle quicklist
-keymap("n", "<Leader>t", "<cmd>lua require('utils').toggle_quicklist()<CR>",
+keymap("n", "<leader>q", "<cmd>lua require('utils').toggle_quicklist()<CR>",
        silent)
 
 -- Manually invoke speeddating in case switch.vim didn't work
@@ -99,15 +109,23 @@ else
 end
 
 -- Refactor with spectre
-keymap("n", "<leader>pr",
+keymap("n", "<Leader>pr",
        "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", silent)
-keymap("v", "<leader>pr", "<cmd>lua require('spectre').open_visual()<CR>")
+keymap("v", "<Leader>pr", "<cmd>lua require('spectre').open_visual()<CR>")
 
 -- LSP
-
+keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", silent)
+keymap("n", "gr",
+       "<cmd>lua vim.lsp.buf.references({ includeDeclaration = false })<CR>",
+       silent)
+keymap("n", "<C-Space>", "<cmd>lua vim.lsp.buf.code_action()<CR>", silent)
 keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", silent)
 keymap("v", "<leader>ca", "<cmd>'<,'>lua vim.lsp.buf.code_action()<CR>", silent)
 keymap("n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>", silent)
+keymap("n", "<leader>cf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>",
+       silent)
+keymap("v", "<leader>cf", "<cmd>'<.'>lua vim.lsp.buf.range_formatting()<CR>",
+       silent)
 keymap("n", "<leader>cl",
        "<cmd>lua vim.diagnostic.open_float({ border = 'rounded', max_width = 100 })<CR>",
        silent)
@@ -216,4 +234,3 @@ keymap("n", "<Leader>pf",
 
 keymap("n", "<Leader>pw",
        "<CMD>lua require('telescope.builtin').grep_string({ initial_mode = 'normal' })<CR>")
-
