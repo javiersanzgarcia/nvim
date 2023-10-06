@@ -8,6 +8,12 @@ return {
             "terminal", "Trouble", "qf", "Outline"
         },
         filesystem = {
+            filtered_items = {
+                visible = true, -- when true, they will just be displayed differently than normal items
+                hide_dotfiles = false,
+                hide_gitignored = false,
+                hide_hidden = false -- only works on Windows for hidden files/directories
+            },
             bind_to_cwd = false,
             follow_current_file = {enabled = true},
             use_libuv_file_watcher = true
