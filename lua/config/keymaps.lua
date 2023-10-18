@@ -58,5 +58,9 @@ keymap("n", "gn", ":bn<CR>", silent)
 keymap("n", "gp", ":bp<CR>", silent)
 keymap("n", "<S-q>", ":BufferClose<CR>", silent)
 
--- Copy all: :%y+
+-- Copy all
+
+keymap("n", "<leader>ya", ":%y+<CR>", silent)
+
 -- Duplicate line NVIM: yy p
+-- Alt +o, discard suggestion and go to next line
