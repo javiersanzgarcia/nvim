@@ -62,5 +62,8 @@ keymap("n", "<S-q>", ":BufferClose<CR>", silent)
 
 keymap("n", "<leader>ya", ":%y+<CR>", silent)
 
+-- Shorcuts IMPORTANT !!
+
 -- Duplicate line NVIM: yy p
--- Alt +o, discard suggestion and go to next line
+-- Alt + a, discard suggestion and pointer at smae place
+-- Alt + o, discard suggestion and go to next line
